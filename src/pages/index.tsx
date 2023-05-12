@@ -8,13 +8,13 @@ import { api } from "~/utils/api";
 
 const Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
-  const { isLoaded, isSignedIn, user } = useUser();
+  const { data, isLoading } = api.posts.all.useQuery();
+  if (isLoading) return <div>Loading ...</div>;
+  if (!data) return <div>Something went wrong</div>;
 
-  return (
-    <PageLayout>
-      <UserButton />
-    </PageLayout>
-  );
+  console.log(data);
+
+  return <PageLayout></PageLayout>;
 };
 
 export default Home;
